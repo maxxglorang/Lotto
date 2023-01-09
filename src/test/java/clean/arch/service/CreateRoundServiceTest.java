@@ -73,7 +73,8 @@ class CreateRoundServiceTest {
         doReturn(Optional.of(
                 new Round(
                         name,
-                        LocalDate.of(2023, 1, 21)
+                        LocalDate.of(2023, 1, 21),
+                        0
                 )
         ))
                 .when(mockRepository)
@@ -100,7 +101,8 @@ class CreateRoundServiceTest {
                 Optional.of(
                         new Round(
                                 "DIFF",
-                                drawnAt
+                                drawnAt,
+                                0
                         )
                 )
         )

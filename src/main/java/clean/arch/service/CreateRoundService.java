@@ -24,10 +24,12 @@ public class CreateRoundService implements CreatingRoundUsecase {
                 request.name(),
                 request.drawnAt()
         );
+        var prevBalance = restOfRewardMoney(request.drawnAt());
         roundRepository.save(
                 new Round(
                         request.name(),
-                        request.drawnAt()
+                        request.drawnAt(),
+                        prevBalance
                 )
         );
     }
@@ -55,6 +57,13 @@ public class CreateRoundService implements CreatingRoundUsecase {
                 .ifPresent(round -> {
                     throw new DuplicatedDrawnAtException();
                 });
+    }
+
+    int restOfRewardMoney(LocalDate currentRoundDrawnAt) {
+        var lastRoundDrawnAt = currentRoundDrawnAt.minusDays(7);
+        return roundRepository.findByDrawnAt(lastRoundDrawnAt)
+                .map(Round::startRewardMoney)
+                .orElse(0);
     }
 
     static class DuplicatedDrawnAtException extends RuntimeException {}
