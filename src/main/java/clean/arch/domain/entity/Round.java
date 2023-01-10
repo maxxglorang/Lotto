@@ -1,15 +1,14 @@
 package clean.arch.domain.entity;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 public class Round {
     private String name;
     private LocalDate drawnAt;
     private int startRewardMoney;
     private int restRewardMoney;
-
-    private List<Integer> resultNumbers;
+    private Set<Integer> drawnNumbers;
 
     public Round(
             String name,
