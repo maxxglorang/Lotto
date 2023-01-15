@@ -1,20 +1,17 @@
-package clean.arch.service;
+package clean.arch.service.round;
 
 import clean.arch.domain.entity.Round;
 import clean.arch.repository.RoundRepository;
 import clean.arch.usecase.CreatingRoundUsecase;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
+import static clean.arch.exception.RoundException.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
@@ -58,7 +55,7 @@ class CreateRoundServiceTest {
         });
 
         // then
-        assertThat(throwable).isExactlyInstanceOf(CreateRoundService.DrawnAtPastDateException.class);
+        assertThat(throwable).isExactlyInstanceOf(DrawnAtPastDateException.class);
     }
 
     @Test
@@ -86,7 +83,7 @@ class CreateRoundServiceTest {
         });
 
         // then
-        assertThat(throwable).isExactlyInstanceOf(CreateRoundService.DuplicatedNameException.class);
+        assertThat(throwable).isExactlyInstanceOf(DuplicatedNameException.class);
     }
 
     @Test
@@ -113,7 +110,7 @@ class CreateRoundServiceTest {
         var throwable = catchThrowable(() -> new CreateRoundService(mockRepository).create(request));
 
         // then
-        assertThat(throwable).isExactlyInstanceOf(CreateRoundService.DuplicatedDrawnAtException.class);
+        assertThat(throwable).isExactlyInstanceOf(DuplicatedDrawnAtException.class);
     }
 
     @Test
@@ -131,6 +128,6 @@ class CreateRoundServiceTest {
         });
 
         // then
-        assertThat(throwable).isExactlyInstanceOf(CreateRoundService.DrawnAtNotSaturdayException.class);
+        assertThat(throwable).isExactlyInstanceOf(DrawnAtNotSaturdayException.class);
     }
 }

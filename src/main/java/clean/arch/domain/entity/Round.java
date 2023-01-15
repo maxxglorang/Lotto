@@ -1,14 +1,16 @@
 package clean.arch.domain.entity;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Round {
     private String name;
     private LocalDate drawnAt;
-    private int startRewardMoney;
-    private int restRewardMoney;
-    private Set<Integer> drawnNumbers;
+    private int restOfPrevRoundRewardMoney;
+    private int balance;
+    private List<Integer> drawnNumbers;
+    private List<Game> games;
 
     public Round(
             String name,
@@ -17,7 +19,30 @@ public class Round {
     ) {
         this.name = name;
         this.drawnAt = drawnAt;
-        this.startRewardMoney = startRewardMoney;
+        this.restOfPrevRoundRewardMoney = startRewardMoney;
+        this.balance = restOfPrevRoundRewardMoney;
+        this.drawnNumbers = new ArrayList<>();
+        this.games = new ArrayList<>();
+    }
+
+    public void updateBalance(int money) {
+        this.balance += money;
+    }
+
+    public int balance() {
+        return balance + restOfPrevRoundRewardMoney;
+    }
+
+    public List<Integer> drawnNumbers() {
+        return drawnNumbers;
+    }
+
+    public void setDrawnNumbers(List<Integer> drawnNumbers) {
+        this.drawnNumbers = drawnNumbers;
+    }
+
+    public List<Game> games() {
+        return games;
     }
 
     public String name() {
@@ -36,19 +61,11 @@ public class Round {
         this.drawnAt = drawnAt;
     }
 
-    public int startRewardMoney() {
-        return startRewardMoney;
+    public int restOfPrevRoundRewardMoney() {
+        return restOfPrevRoundRewardMoney;
     }
 
-    public void setStartRewardMoney(int startRewardMoney) {
-        this.startRewardMoney = startRewardMoney;
-    }
-
-    public int restRewardMoney() {
-        return restRewardMoney;
-    }
-
-    public void setRestRewardMoney(int restRewardMoney) {
-        this.restRewardMoney = restRewardMoney;
+    public void setRestOfPrevRoundRewardMoney(int restOfPrevRoundRewardMoney) {
+        this.restOfPrevRoundRewardMoney = restOfPrevRoundRewardMoney;
     }
 }

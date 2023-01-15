@@ -1,12 +1,12 @@
-package clean.arch.service;
+package clean.arch.service.round;
 
 import clean.arch.domain.entity.Round;
 import clean.arch.repository.RoundRepository;
 import clean.arch.usecase.CreatingRoundUsecase;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 
+import static clean.arch.exception.RoundException.*;
 import static java.time.DayOfWeek.*;
 import static java.time.LocalDate.*;
 
@@ -62,12 +62,7 @@ public class CreateRoundService implements CreatingRoundUsecase {
     int restOfRewardMoney(LocalDate currentRoundDrawnAt) {
         var lastRoundDrawnAt = currentRoundDrawnAt.minusDays(7);
         return roundRepository.findByDrawnAt(lastRoundDrawnAt)
-                .map(Round::startRewardMoney)
+                .map(Round::restOfPrevRoundRewardMoney)
                 .orElse(0);
     }
-
-    static class DuplicatedDrawnAtException extends RuntimeException {}
-    static class DuplicatedNameException extends RuntimeException {}
-    static class DrawnAtPastDateException extends RuntimeException {}
-    static class DrawnAtNotSaturdayException extends RuntimeException {}
 }

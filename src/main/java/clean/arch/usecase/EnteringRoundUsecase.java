@@ -1,10 +1,12 @@
 package clean.arch.usecase;
 
+import clean.arch.domain.entity.Round;
+
 public interface EnteringRoundUsecase {
-    void enter(Request request);
+    Round enter(Request request);
 
     record Request(
             String roundName,
-            int amount
+            int paidMoney
     ) {}
 }

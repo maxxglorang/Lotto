@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface RoundRepository {
     void save(Round round);
 
+    void update(Round round);
+
     Optional<Round> findByName(String name);
 
     Optional<Round> findByDrawnAt(LocalDate drawnAt);
